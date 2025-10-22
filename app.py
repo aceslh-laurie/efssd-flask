@@ -1,5 +1,6 @@
 # This code imports the Flask library and some functions from it.
-from flask import Flask
+from flask import Flask, render_template
+
 
 # Create a Flask application instance
 app = Flask(__name__)
@@ -14,7 +15,8 @@ def index():
     # This defines a variable 'studentName' that will be passed to the output HTML
     studentName = "SHU Student"
     # Render HTML with the name in a H1 tag
-    return f"<h1>Hello, {studentName}!</h1>"
+    #return render_template('index.html', title="Welcm", username = studentName)
+    return render_template('index.html', title="Welcome", username=studentName)
 
 # About Page
 @app.route('/about/')
