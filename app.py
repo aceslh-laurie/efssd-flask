@@ -10,7 +10,7 @@ siteName = "SHU EFSSD Module"
 # Set the site name in the app context
 @app.context_processor
 def inject_site_name():
-    return dict(siteName=siteName)
+    return dict(siteName=siteName, p2 = "This is page 2")
 
 
 # Routes
@@ -30,7 +30,7 @@ def index():
 @app.route('/about/')
 def about():
     # Render HTML with the name in a H1 tag
-    return f"<h1>About Flask!</h1><p>It is easy to create new routes</p>"
+    return render_template('about.html', title="About EFSSD")
 
 
 
