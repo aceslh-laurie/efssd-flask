@@ -1,9 +1,19 @@
 # This code imports the Flask library and some functions from it.
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for, request, flash, redirect
+from flask_wtf import CSRFProtect
+from flask_wtf.csrf import generate_csrf
 
 
 # Create a Flask application instance
 app = Flask(__name__)
+
+app.secret_key = 'your_secret_key'  # Required for CSRF protection
+csrf = CSRFProtect(app)  # This automatically protects all POST routes
+
+@app.context_processor
+def inject_csrf_token():
+    return dict(csrf_token=generate_csrf())
+
 
 # Global variable for site name: Used in templates to display the site name
 siteName = "SHU EFSSD Module"
@@ -31,6 +41,21 @@ def index():
 def about():
     # Render HTML with the name in a H1 tag
     return render_template('about.html', title="About EFSSD")
+
+# Register Page
+# Register Page
+@app.route('/register/', methods=('GET', 'POST'))
+def register():
+
+    # If the request method is POST, process the form submission
+    if request.method == 'POST':
+
+        flash(category='success', message='The Form Was Posted Successfully!')
+        return render_template('register.html', title="Register")
+    
+    # If the request method is GET, just render the registration form
+    return render_template('register.html', title="Register")
+
 
 
 
